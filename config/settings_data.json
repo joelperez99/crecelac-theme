@@ -4440,7 +4440,7 @@
           "feature_r6HNNr": {
             "type": "feature",
             "settings": {
-              "icon": "protein",
+              "icon": "lactose-free",
               "title": "Sin lactosa",
               "subtitle": "De fácil digestión"
             }
@@ -4448,7 +4448,7 @@
           "feature_qxzTxk": {
             "type": "feature",
             "settings": {
-              "icon": "protein",
+              "icon": "ready-to-drink",
               "title": "Listo para beber",
               "subtitle": "Práctico y llevar contigo"
             }
