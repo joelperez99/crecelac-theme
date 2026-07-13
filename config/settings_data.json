@@ -4364,15 +4364,15 @@
         "type": "crecelac-hero",
         "settings": {
           "heading": "Nutrición completa en cada sorbo.",
-          "subheading": "<p>Una bebida lista para consumir con proteina, vitaminas, minerales y otros nutrientes esenciales para toda la familia.</p>",
+          "subheading": "<p><br/>Una bebida lista para consumir con <strong>proteína</strong>, <strong>vitaminas y minerales</strong> esenciales para toda la familia.<br/><br/></p>",
           "button_1_text": "Comprar ahora",
           "button_1_link": "",
           "button_2_text": "Conoce mas",
           "button_2_link": "",
           "image": "shopify://shop_images/Gemini_Generated_Image_ax5lvjax5lvjax5l.png",
           "show_badge": true,
-          "badge_title": "+2,500 familias",
-          "badge_subtitle": "confian en Crecelac",
+          "badge_title": "+25,000 familias",
+          "badge_subtitle": "confían en Para comenzar",
           "bg_color": "#ffffff",
           "heading_color": "#232323",
           "text_color": "#4a4a4a",
@@ -4487,6 +4487,19 @@
           "bg_color": "#faf3ef",
           "title_color": "#232323",
           "text_color": "#4a4a4a",
+          "accent_color": "#c70000"
+        }
+      },
+      "crecelac-header": {
+        "type": "crecelac-header",
+        "settings": {
+          "logo_width": 140,
+          "logo_text": "Crecelac",
+          "tagline": "Nutricion completa",
+          "menu": "main-menu",
+          "bg_color": "#ffffff",
+          "border_color": "#ececec",
+          "text_color": "#232323",
           "accent_color": "#c70000"
         }
       }
