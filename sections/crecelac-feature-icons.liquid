@@ -55,18 +55,27 @@
 
   #crecelac-features-{{ section.id }} .crecelac-features__icon {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 30px;
     height: 30px;
+    flex-shrink: 0;
     color: {{ section.settings.accent_color }};
   }
 
   #crecelac-features-{{ section.id }} .crecelac-features__item strong {
+    display: block;
+    width: 100%;
+    text-align: center;
     font-size: 13px;
     font-weight: 600;
     color: {{ section.settings.title_color }};
   }
 
   #crecelac-features-{{ section.id }} .crecelac-features__subtitle {
+    display: block;
+    width: 100%;
+    text-align: center;
     font-size: 11px;
     color: {{ section.settings.subtitle_color }};
   }
