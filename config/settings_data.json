@@ -4424,7 +4424,7 @@
           "feature_e9VePP": {
             "type": "feature",
             "settings": {
-              "icon": "protein",
+              "icon": "vitamins",
               "title": "Vitaminas y minerales",
               "subtitle": "Nutrición completa diaria"
             }
@@ -4460,14 +4460,6 @@
               "title": "Ideal para cualquier momento",
               "subtitle": "Tu dosis de energía diaria"
             }
-          },
-          "feature_JJb4b9": {
-            "type": "feature",
-            "settings": {
-              "icon": "protein",
-              "title": "Alto en proteina",
-              "subtitle": "24g por porcion"
-            }
           }
         },
         "block_order": [
@@ -4476,8 +4468,7 @@
           "feature_a9dGcr",
           "feature_r6HNNr",
           "feature_qxzTxk",
-          "feature_Utqx4Q",
-          "feature_JJb4b9"
+          "feature_Utqx4Q"
         ],
         "settings": {
           "bg_color": "#ffffff",
