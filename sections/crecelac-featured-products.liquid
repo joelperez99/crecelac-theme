@@ -1,0 +1,277 @@
+{% case section.settings.products_per_row %}
+  {% when '2' %}
+    {%- assign grid_item_width = 'col-6' -%}
+  {% when '3' %}
+    {%- assign grid_item_width = 'col-6 col-md-4' -%}
+  {% when '4' %}
+    {%- assign grid_item_width = 'col-6 col-md-3' -%}
+{% endcase %}
+
+<div class="crecelac-featured" id="crecelac-featured-{{ section.id }}">
+  <div class="container">
+    <div class="crecelac-featured__header">
+      {% if section.settings.title != blank %}
+      <h2 class="crecelac-featured__title">{% render 'multilang' with section.settings.title %}</h2>
+      {% endif %}
+      {% if section.settings.link_text != blank %}
+      <a href="{{ section.settings.link }}" class="crecelac-featured__link">{% render 'multilang' with section.settings.link_text %}</a>
+      {% endif %}
+    </div>
+
+    <div class="crecelac-featured__grid">
+      <div class="crecelac-featured__products">
+        <div class="row">
+          {% for product in collections[section.settings.collection].products limit: section.settings.products_limit %}
+          <div class="grid-item {{ grid_item_width }}">
+            {% render 'product-grid-item' with product as product %}
+          </div>
+          {% else %}
+          {% for i in (1..4) %}
+          <div class="grid-item {{ grid_item_width }}">
+            <div class="not_img">Selecciona una coleccion</div>
+          </div>
+          {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if section.blocks.size > 0 %}
+      <aside class="crecelac-featured__sidebar" style="background-color: {{ section.settings.sidebar_bg }};">
+        <ul>
+          {% for block in section.blocks %}
+          <li {{ block.shopify_attributes }}>
+            <span class="crecelac-featured__sidebar-icon">{% render 'icon-crecelac', icon: block.settings.icon %}</span>
+            <div>
+              <strong>{% render 'multilang' with block.settings.title %}</strong>
+              {% if block.settings.subtitle != blank %}
+              <span>{% render 'multilang' with block.settings.subtitle %}</span>
+              {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </aside>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  #crecelac-featured-{{ section.id }} {
+    padding: 48px 0;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__title {
+    font-size: 26px;
+    font-weight: 700;
+    color: {{ section.settings.title_color }};
+    margin: 0;
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__link {
+    font-size: 13px;
+    font-weight: 600;
+    color: {{ section.settings.accent_color }};
+    text-decoration: none;
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__grid {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__products {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__sidebar {
+    flex: 0 0 260px;
+    border-radius: 10px;
+    padding: 24px 20px;
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__sidebar li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__sidebar-icon {
+    display: inline-flex;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    color: {{ section.settings.accent_color }};
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__sidebar div {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    color: #666;
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-featured__sidebar strong {
+    font-size: 13px;
+    color: {{ section.settings.title_color }};
+    margin-bottom: 2px;
+  }
+
+  #crecelac-featured-{{ section.id }} .crecelac-btn--add {
+    background-color: {{ section.settings.accent_color }};
+    border-color: {{ section.settings.accent_color }};
+  }
+
+  @media (max-width: 991px) {
+    #crecelac-featured-{{ section.id }} .crecelac-featured__grid {
+      flex-direction: column;
+    }
+
+    #crecelac-featured-{{ section.id }} .crecelac-featured__sidebar {
+      flex: 1;
+      width: 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Crecelac: Productos destacados",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo",
+      "default": "Productos destacados"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Texto del enlace",
+      "default": "Ver todos"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Enlace"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleccion"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Numero de productos",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "products_per_row",
+      "label": "Productos por fila",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fondo de seccion",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "sidebar_bg",
+      "label": "Fondo de la barra lateral",
+      "default": "#faf3ef"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color del titulo",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Color de acento",
+      "default": "#c70000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Beneficio",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "options": [
+            { "value": "clock", "label": "Reloj" },
+            { "value": "pause", "label": "Pausa" },
+            { "value": "points", "label": "Puntos" },
+            { "value": "truck", "label": "Camion" }
+          ],
+          "default": "clock"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titulo",
+          "default": "Suscribete y ahorra 15%"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitulo",
+          "default": "Envio automatico a tu puerta"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Crecelac: Productos destacados",
+      "category": "Crecelac",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "clock", "title": "Suscribete y ahorra 15%", "subtitle": "Envio automatico a tu puerta" } },
+        { "type": "benefit", "settings": { "icon": "pause", "title": "Pausa o cancela cuando quieras", "subtitle": "Sin compromisos" } },
+        { "type": "benefit", "settings": { "icon": "points", "title": "Acumula puntos", "subtitle": "Y obten descuentos" } },
+        { "type": "benefit", "settings": { "icon": "truck", "title": "Envios rapidos y seguros", "subtitle": "A todo Mexico" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

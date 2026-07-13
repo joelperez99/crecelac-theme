@@ -1,0 +1,122 @@
+<div class="crecelac-announcement" id="crecelac-announcement-{{ section.id }}">
+  <div class="container">
+    <ul class="crecelac-announcement__list">
+      {% for block in section.blocks %}
+      <li class="crecelac-announcement__item" {{ block.shopify_attributes }}>
+        {% if block.settings.icon != 'none' %}
+        <span class="crecelac-announcement__icon">{% render 'icon-crecelac', icon: block.settings.icon %}</span>
+        {% endif %}
+        <span class="crecelac-announcement__text">{% render 'multilang' with block.settings.text %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<style>
+  #crecelac-announcement-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    font-size: 13px;
+    padding: 9px 0;
+  }
+
+  #crecelac-announcement-{{ section.id }} .crecelac-announcement__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+  }
+
+  #crecelac-announcement-{{ section.id }} .crecelac-announcement__item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  #crecelac-announcement-{{ section.id }} .crecelac-announcement__icon {
+    display: inline-flex;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  #crecelac-announcement-{{ section.id }} .crecelac-announcement__icon svg {
+    stroke: {{ section.settings.text_color }};
+  }
+
+  @media (max-width: 767px) {
+    #crecelac-announcement-{{ section.id }} .crecelac-announcement__list {
+      gap: 6px 16px;
+    }
+
+    #crecelac-announcement-{{ section.id }} .crecelac-announcement__item:not(:first-child) {
+      display: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Crecelac: Barra anuncios",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Color de fondo",
+      "default": "#c70000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color de texto",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Mensaje",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "options": [
+            { "value": "none", "label": "Sin icono" },
+            { "value": "truck", "label": "Camion" },
+            { "value": "clock", "label": "Reloj" },
+            { "value": "shield", "label": "Escudo" },
+            { "value": "check", "label": "Check" }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Envio gratis en pedidos +$999 MXN"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Crecelac: Barra anuncios",
+      "category": "Crecelac",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "truck", "text": "Envio gratis en pedidos +$999 MXN" } },
+        { "type": "item", "settings": { "icon": "clock", "text": "15% de descuento en tu primera suscripcion" } },
+        { "type": "item", "settings": { "icon": "shield", "text": "Garantia de satisfaccion 100%" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

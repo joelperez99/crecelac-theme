@@ -1,0 +1,184 @@
+<div class="crecelac-testimonials" id="crecelac-testimonials-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.title != blank %}
+    <h2 class="crecelac-testimonials__title">{% render 'multilang' with section.settings.title %}</h2>
+    {% endif %}
+
+    <div class="crecelac-testimonials__grid">
+      {% for block in section.blocks %}
+      <div class="crecelac-testimonials__card" {{ block.shopify_attributes }}>
+        <div class="crecelac-testimonials__head">
+          <div class="crecelac-testimonials__avatar">
+            {% if block.settings.image != blank %}
+            {%- assign img_url = block.settings.image | img_url: '100x100' -%}
+            <img data-src="{{ img_url }}" src="{{ img_url }}" alt="{{ block.settings.name | escape }}" class="lazyautosizes lazyloaded" data-sizes="auto">
+            {% else %}
+            <span>{{ block.settings.name | slice: 0 }}</span>
+            {% endif %}
+          </div>
+          <div>
+            <strong>{% render 'multilang' with block.settings.name %}</strong>
+            {% if block.settings.role != blank %}
+            <span class="crecelac-testimonials__role">{% render 'multilang' with block.settings.role %}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="crecelac-testimonials__stars">
+          {% for i in (1..5) %}{% render 'icon-star' %}{% endfor %}
+        </div>
+
+        {% if block.settings.quote != blank %}
+        <p class="crecelac-testimonials__quote">"{% render 'multilang' with block.settings.quote %}"</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  #crecelac-testimonials-{{ section.id }} {
+    padding: 56px 0;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: {{ section.settings.title_color }};
+    margin: 0 0 28px;
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__card {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 10px;
+    padding: 22px;
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: {{ section.settings.accent_color }};
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__head strong {
+    display: block;
+    font-size: 14px;
+    color: {{ section.settings.title_color }};
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__role {
+    font-size: 12px;
+    color: #8a8a8a;
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 10px;
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__stars svg {
+    width: 13px;
+    height: 13px;
+    fill: #f5a623;
+  }
+
+  #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__quote {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    margin: 0;
+  }
+
+  @media (max-width: 767px) {
+    #crecelac-testimonials-{{ section.id }} .crecelac-testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Crecelac: Testimonios",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo",
+      "default": "Lo que dicen nuestros clientes"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fondo de seccion",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color del titulo",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Color de acento",
+      "default": "#c70000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonio",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Foto" },
+        { "type": "text", "id": "name", "label": "Nombre", "default": "Maria G." },
+        { "type": "text", "id": "role", "label": "Rol / descripcion", "default": "Mama de 2 ninos" },
+        { "type": "textarea", "id": "quote", "label": "Testimonio", "default": "A mis hijos les encanta y me quedo tranquila sabiendo que estan tomando algo nutritivo." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Crecelac: Testimonios",
+      "category": "Crecelac",
+      "blocks": [
+        { "type": "testimonial", "settings": { "name": "Maria G.", "role": "Mama de 2 ninos", "quote": "A mis hijos les encanta y me quedo tranquila sabiendo que estan tomando algo nutritivo." } },
+        { "type": "testimonial", "settings": { "name": "Carlos R.", "role": "Atleta", "quote": "Perfecto despues de entrenamientos. Sabor increible y me recupero rapido." } },
+        { "type": "testimonial", "settings": { "name": "Ana L.", "role": "Estilo de vida saludable", "quote": "Me ayuda a mantenerme con energia durante el dia. Super practico y delicioso." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

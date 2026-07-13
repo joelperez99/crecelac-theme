@@ -1,0 +1,11 @@
+<kueskipay-widget
+     data-kpay-widget-type="cart"
+     data-kpay-widget-font-size="15"
+     data-kpay-widget-text-align="right"
+     data-kpay-widget-amount="{{ cart.total_price }}"
+     data-kpay-widget-product-name="{{ cart.title }}"
+</kueskipay-widget>
+<script id="kpay-advertising-script"
+src="https://cdn.kueskipay.com/widgets.js?authorization=13a0e44d-3035-406a-b19b-ef9ef74ddda5&sandbox=false&integration=shopify&version=v1.0">
+</script>
+<script type="">new KueskipayAdvertising().init()</script>

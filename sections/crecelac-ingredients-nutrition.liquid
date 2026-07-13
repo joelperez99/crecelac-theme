@@ -1,0 +1,328 @@
+{% assign ingredient_blocks = section.blocks | where: 'type', 'ingredient' %}
+{% assign nutrient_blocks = section.blocks | where: 'type', 'nutrient' %}
+{% assign vitamin_blocks = section.blocks | where: 'type', 'vitamin' %}
+
+<div class="crecelac-nutrition" id="crecelac-nutrition-{{ section.id }}">
+  <div class="container">
+    <div class="crecelac-nutrition__grid">
+      <div class="crecelac-nutrition__ingredients">
+        {% if section.settings.ingredients_title != blank %}
+        <h2>{% render 'multilang' with section.settings.ingredients_title %}</h2>
+        {% endif %}
+
+        <div class="crecelac-nutrition__ingredients-grid">
+          {% for block in ingredient_blocks %}
+          <div class="crecelac-nutrition__ingredient" {{ block.shopify_attributes }}>
+            <div class="crecelac-nutrition__ingredient-media">
+              {% if block.settings.image != blank %}
+              {%- assign img_url = block.settings.image | img_url: '200x' -%}
+              <img data-src="{{ img_url }}" src="{{ img_url }}" alt="{{ block.settings.title | escape }}" class="lazyautosizes lazyloaded" data-sizes="auto">
+              {% else %}
+              <div class="not_img">200 x 200px</div>
+              {% endif %}
+            </div>
+            {% if block.settings.title != blank %}
+            <strong>{% render 'multilang' with block.settings.title %}</strong>
+            {% endif %}
+            {% if block.settings.subtitle != blank %}
+            <span>{% render 'multilang' with block.settings.subtitle %}</span>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="crecelac-nutrition__facts">
+        {% if section.settings.facts_title != blank %}
+        <h2>{% render 'multilang' with section.settings.facts_title %}</h2>
+        {% endif %}
+        {% if section.settings.serving_size != blank %}
+        <p class="crecelac-nutrition__serving">{% render 'multilang' with section.settings.serving_size %}</p>
+        {% endif %}
+
+        <table class="crecelac-nutrition__table">
+          {% for block in nutrient_blocks %}
+          <tr {{ block.shopify_attributes }}>
+            <td>{% render 'multilang' with block.settings.label %}</td>
+            <td>{% render 'multilang' with block.settings.value %}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        {% if vitamin_blocks.size > 0 %}
+        <div class="crecelac-nutrition__vitamins">
+          {% for block in vitamin_blocks %}
+          <div {{ block.shopify_attributes }}>
+            <strong>{% render 'multilang' with block.settings.label %}</strong>
+            <span>{% render 'multilang' with block.settings.value %}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if section.settings.disclaimer != blank %}
+        <p class="crecelac-nutrition__disclaimer">{% render 'multilang' with section.settings.disclaimer %}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #crecelac-nutrition-{{ section.id }} {
+    padding: 56px 0;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  #crecelac-nutrition-{{ section.id }} h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: {{ section.settings.title_color }};
+    margin: 0 0 24px;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__grid {
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__ingredients {
+    flex: 1.4;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__ingredient {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__ingredient-media {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__ingredient-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__ingredient strong {
+    font-size: 13px;
+    color: {{ section.settings.title_color }};
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__ingredient span {
+    font-size: 11px;
+    color: #8a8a8a;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__facts {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 10px;
+    padding: 24px 28px;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__serving {
+    font-size: 13px;
+    color: #8a8a8a;
+    margin: -14px 0 16px;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 18px;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__table tr {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__table td {
+    padding: 9px 0;
+    font-size: 13px;
+    color: #4a4a4a;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__table td:last-child {
+    text-align: right;
+    font-weight: 600;
+    color: {{ section.settings.title_color }};
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__vitamins {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid #ececec;
+    text-align: center;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__vitamins div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__vitamins strong {
+    font-size: 15px;
+    color: {{ section.settings.accent_color }};
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__vitamins span {
+    font-size: 11px;
+    color: #8a8a8a;
+  }
+
+  #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__disclaimer {
+    font-size: 11px;
+    color: #a0a0a0;
+    margin: 14px 0 0;
+  }
+
+  @media (max-width: 991px) {
+    #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__grid {
+      flex-direction: column;
+    }
+
+    #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__ingredients-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__facts {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 575px) {
+    #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__ingredients-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    #crecelac-nutrition-{{ section.id }} .crecelac-nutrition__vitamins {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Crecelac: Ingredientes y nutricion",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ingredients_title",
+      "label": "Titulo ingredientes",
+      "default": "Ingredientes principales"
+    },
+    {
+      "type": "text",
+      "id": "facts_title",
+      "label": "Titulo tabla nutrimental",
+      "default": "Informacion nutrimental"
+    },
+    {
+      "type": "text",
+      "id": "serving_size",
+      "label": "Tamano de porcion",
+      "default": "Por porcion (330 ml)"
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Nota al pie",
+      "default": "% de valor diario basado en una dieta de 2,000 kcal."
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fondo de seccion",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color del titulo",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Color de acento",
+      "default": "#c70000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingrediente",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagen" },
+        { "type": "text", "id": "title", "label": "Titulo", "default": "Proteina de alta calidad" },
+        { "type": "text", "id": "subtitle", "label": "Descripcion", "default": "Desarrollo y mantenimiento muscular" }
+      ]
+    },
+    {
+      "type": "nutrient",
+      "name": "Nutriente (fila de tabla)",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Nombre", "default": "Calorias" },
+        { "type": "text", "id": "value", "label": "Valor", "default": "220 kcal" }
+      ]
+    },
+    {
+      "type": "vitamin",
+      "name": "Vitamina (badge)",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Nombre", "default": "Vitamina A" },
+        { "type": "text", "id": "value", "label": "Porcentaje", "default": "25%" }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Crecelac: Ingredientes y nutricion",
+      "category": "Crecelac",
+      "blocks": [
+        { "type": "ingredient", "settings": { "title": "Proteina de alta calidad", "subtitle": "Desarrollo y mantenimiento muscular" } },
+        { "type": "ingredient", "settings": { "title": "Vitaminas", "subtitle": "Fortalecen el sistema inmunologico" } },
+        { "type": "ingredient", "settings": { "title": "Minerales", "subtitle": "Salud osea y funcion corporal" } },
+        { "type": "ingredient", "settings": { "title": "Prebioticos", "subtitle": "Salud digestiva y bienestar intestinal" } },
+        { "type": "ingredient", "settings": { "title": "Ingredientes naturales", "subtitle": "Sin colorantes ni saborizantes artificiales" } },
+        { "type": "nutrient", "settings": { "label": "Calorias", "value": "220 kcal" } },
+        { "type": "nutrient", "settings": { "label": "Proteina", "value": "24 g" } },
+        { "type": "nutrient", "settings": { "label": "Grasas totales", "value": "6 g" } },
+        { "type": "nutrient", "settings": { "label": "Carbohidratos", "value": "18 g" } },
+        { "type": "nutrient", "settings": { "label": "Azucares", "value": "6 g" } },
+        { "type": "nutrient", "settings": { "label": "Fibra dietetica", "value": "4 g" } },
+        { "type": "nutrient", "settings": { "label": "Sodio", "value": "150 mg" } },
+        { "type": "vitamin", "settings": { "label": "Vitamina A", "value": "25%" } },
+        { "type": "vitamin", "settings": { "label": "Vitamina C", "value": "30%" } },
+        { "type": "vitamin", "settings": { "label": "Calcio", "value": "25%" } },
+        { "type": "vitamin", "settings": { "label": "Hierro", "value": "20%" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

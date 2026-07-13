@@ -1,0 +1,145 @@
+<div class="crecelac-newsletter" id="crecelac-newsletter-{{ section.id }}">
+  <div class="container">
+    <div class="crecelac-newsletter__inner">
+      {% if section.settings.image != blank %}
+      <div class="crecelac-newsletter__media">
+        {%- assign img_url = section.settings.image | img_url: '400x' -%}
+        <img data-src="{{ img_url }}" src="{{ img_url }}" alt="" class="lazyautosizes lazyloaded" data-sizes="auto">
+      </div>
+      {% endif %}
+
+      <div class="crecelac-newsletter__content">
+        {% if section.settings.title != blank %}
+        <h2>{% render 'multilang' with section.settings.title %}</h2>
+        {% endif %}
+        {% if section.settings.subtitle != blank %}
+        <p>{% render 'multilang' with section.settings.subtitle %}</p>
+        {% endif %}
+      </div>
+
+      <div class="crecelac-newsletter__form">
+        {% render 'newsletter-form' %}
+        {% if section.settings.disclaimer != blank %}
+        <span class="crecelac-newsletter__disclaimer">{% render 'multilang' with section.settings.disclaimer %}</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #crecelac-newsletter-{{ section.id }} {
+    padding: 40px 0;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__media {
+    flex: 0 0 220px;
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__media img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__content {
+    flex: 1;
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__content h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: {{ section.settings.title_color }};
+    margin: 0 0 6px;
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__content p {
+    font-size: 13px;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__form {
+    flex: 0 0 380px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__form .input-group {
+    display: flex;
+    gap: 10px;
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__form .input-group-field {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 4px;
+    border: 1px solid #d8d8d8;
+    font-size: 13px;
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__form .btn {
+    padding: 12px 22px;
+    border-radius: 4px;
+    border: none;
+    background-color: {{ section.settings.accent_color }};
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__disclaimer {
+    display: block;
+    margin-top: 8px;
+    font-size: 11px;
+    color: #8a8a8a;
+  }
+
+  @media (max-width: 991px) {
+    #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__inner {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__media {
+      display: none;
+    }
+
+    #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__form {
+      flex: 1;
+      width: 100%;
+    }
+
+    #crecelac-newsletter-{{ section.id }} .crecelac-newsletter__form .input-group {
+      flex-direction: column;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Crecelac: Newsletter",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Imagen" },
+    { "type": "text", "id": "title", "label": "Titulo", "default": "Unete a nuestra comunidad" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitulo", "default": "Recibe consejos de nutricion, recetas y 10% de descuento en tu primera compra." },
+    { "type": "text", "id": "disclaimer", "label": "Nota", "default": "Sin spam, solo contenido de valor." },
+    { "type": "header", "content": "Colores" },
+    { "type": "color", "id": "bg_color", "label": "Fondo de seccion", "default": "#faf3ef" },
+    { "type": "color", "id": "title_color", "label": "Color del titulo", "default": "#232323" },
+    { "type": "color", "id": "text_color", "label": "Color de texto", "default": "#4a4a4a" },
+    { "type": "color", "id": "accent_color", "label": "Color de acento", "default": "#c70000" }
+  ],
+  "presets": [
+    { "name": "Crecelac: Newsletter", "category": "Crecelac" }
+  ]
+}
+{% endschema %}

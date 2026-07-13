@@ -1,0 +1,139 @@
+<div class="crecelac-faq" id="crecelac-faq-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.title != blank %}
+    <h2 class="crecelac-faq__title">{% render 'multilang' with section.settings.title %}</h2>
+    {% endif %}
+
+    <div class="panel-group crecelac-faq__list">
+      {% for block in section.blocks %}
+      <div class="panel panel-default" {{ block.shopify_attributes }}>
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a class="{% unless forloop.first %}collapsed{% endunless %}" data-toggle="collapse" href="#crecelac-faq-{{ block.id }}">
+              {% render 'multilang' with block.settings.question %}
+              <span class="crecelac-faq__caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+            </a>
+          </h4>
+        </div>
+        <div id="crecelac-faq-{{ block.id }}" class="panel-collapse collapse{% if forloop.first %} show{% endif %}">
+          <div class="panel-body">
+            {% render 'multilang' with block.settings.answer %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  #crecelac-faq-{{ section.id }} {
+    padding: 56px 0;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  #crecelac-faq-{{ section.id }} .crecelac-faq__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: {{ section.settings.title_color }};
+    margin: 0 0 24px;
+  }
+
+  #crecelac-faq-{{ section.id }} .panel-default {
+    border: 1px solid #ececec;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  #crecelac-faq-{{ section.id }} .panel-title {
+    margin: 0;
+  }
+
+  #crecelac-faq-{{ section.id }} .panel-title > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ section.settings.title_color }};
+    text-decoration: none;
+  }
+
+  #crecelac-faq-{{ section.id }} .crecelac-faq__caret {
+    color: {{ section.settings.accent_color }};
+    transition: transform .2s ease;
+  }
+
+  #crecelac-faq-{{ section.id }} .panel-title > a.collapsed .crecelac-faq__caret {
+    transform: rotate(0deg);
+  }
+
+  #crecelac-faq-{{ section.id }} .panel-title > a:not(.collapsed) .crecelac-faq__caret {
+    transform: rotate(180deg);
+  }
+
+  #crecelac-faq-{{ section.id }} .panel-body {
+    padding: 0 20px 18px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #4a4a4a;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Crecelac: Preguntas frecuentes",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo",
+      "default": "Preguntas frecuentes"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fondo de seccion",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color del titulo",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Color de acento",
+      "default": "#c70000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Pregunta",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Pregunta", "default": "¿Es apto para ninos?" },
+        { "type": "richtext", "id": "answer", "label": "Respuesta", "default": "<p>Si, Crecelac esta formulado para toda la familia a partir de los 3 anos.</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Crecelac: Preguntas frecuentes",
+      "category": "Crecelac",
+      "blocks": [
+        { "type": "faq", "settings": { "question": "¿Es apto para ninos?" } },
+        { "type": "faq", "settings": { "question": "¿Contiene lactosa o gluten?" } },
+        { "type": "faq", "settings": { "question": "¿Como se debe conservar?" } },
+        { "type": "faq", "settings": { "question": "¿Puedo tomarlo si soy diabetico?" } },
+        { "type": "faq", "settings": { "question": "¿Cuantas porciones contiene?" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

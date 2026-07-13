@@ -1,0 +1,38 @@
+{% if section.settings.blog_post != blank %}
+  {% assign limit = section.settings.blog_post %}
+{% else %}
+  {% assign limit = 3 %}
+{% endif %}
+
+
+{%paginate blog.articles by limit%}
+
+
+<div class="content-blog blog-default">
+  <ul class="list-blog">    
+    {% for article in blog.articles %}
+      {% render 'blog-item' with article as article %}
+    {% endfor %}
+  </ul>
+</div>
+
+{% render 'pagination', paginate: paginate %}
+
+
+{%endpaginate%}
+
+
+
+<style>
+  .custom-blog-banner {
+    width: 100%;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .custom-blog-banner img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    display: block;
+  }
+</style>

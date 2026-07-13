@@ -1,0 +1,162 @@
+<div class="crecelac-features" id="crecelac-features-{{ section.id }}">
+  <div class="container">
+    <div class="crecelac-features__grid">
+      {% for block in section.blocks %}
+      <div class="crecelac-features__item" {{ block.shopify_attributes }}>
+        <span class="crecelac-features__icon">{% render 'icon-crecelac', icon: block.settings.icon %}</span>
+        {% if block.settings.title != blank %}
+        <strong>{% render 'multilang' with block.settings.title %}</strong>
+        {% endif %}
+        {% if block.settings.subtitle != blank %}
+        <span class="crecelac-features__subtitle">{% render 'multilang' with block.settings.subtitle %}</span>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  #crecelac-features-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding: 32px 0;
+  }
+
+  #crecelac-features-{{ section.id }} .crecelac-features__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+  }
+
+  #crecelac-features-{{ section.id }} .crecelac-features__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 18px 8px;
+    border: 1px solid {{ section.settings.border_color }};
+    border-radius: 8px;
+  }
+
+  #crecelac-features-{{ section.id }} .crecelac-features__icon {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    color: {{ section.settings.accent_color }};
+  }
+
+  #crecelac-features-{{ section.id }} .crecelac-features__item strong {
+    font-size: 13px;
+    font-weight: 600;
+    color: {{ section.settings.title_color }};
+  }
+
+  #crecelac-features-{{ section.id }} .crecelac-features__subtitle {
+    font-size: 11px;
+    color: {{ section.settings.subtitle_color }};
+  }
+
+  @media (max-width: 991px) {
+    #crecelac-features-{{ section.id }} .crecelac-features__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 575px) {
+    #crecelac-features-{{ section.id }} .crecelac-features__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Crecelac: Beneficios en iconos",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fondo de seccion",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Color de borde",
+      "default": "#ececec"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Color de icono",
+      "default": "#c70000"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color del titulo",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Color del subtitulo",
+      "default": "#8a8a8a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Beneficio",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "options": [
+            { "value": "protein", "label": "Proteina" },
+            { "value": "vitamins", "label": "Vitaminas" },
+            { "value": "prebiotics", "label": "Prebioticos" },
+            { "value": "gluten-free", "label": "Libre de gluten" },
+            { "value": "lactose-free", "label": "Sin lactosa" },
+            { "value": "ready-to-drink", "label": "Listo para beber" },
+            { "value": "clock", "label": "Reloj" },
+            { "value": "shield", "label": "Escudo" },
+            { "value": "family", "label": "Familia" }
+          ],
+          "default": "protein"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titulo",
+          "default": "Alto en proteina"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitulo",
+          "default": "24g por porcion"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 7,
+  "presets": [
+    {
+      "name": "Crecelac: Beneficios en iconos",
+      "category": "Crecelac",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "protein", "title": "Alto en proteina", "subtitle": "24g por porcion" } },
+        { "type": "feature", "settings": { "icon": "vitamins", "title": "Vitaminas y minerales", "subtitle": "28 esenciales" } },
+        { "type": "feature", "settings": { "icon": "prebiotics", "title": "Prebioticos", "subtitle": "Salud digestiva" } },
+        { "type": "feature", "settings": { "icon": "gluten-free", "title": "Libre de gluten", "subtitle": "" } },
+        { "type": "feature", "settings": { "icon": "lactose-free", "title": "Sin lactosa", "subtitle": "" } },
+        { "type": "feature", "settings": { "icon": "ready-to-drink", "title": "Listo para beber", "subtitle": "" } },
+        { "type": "feature", "settings": { "icon": "clock", "title": "Ideal para cualquier momento", "subtitle": "del dia" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

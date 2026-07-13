@@ -1,0 +1,211 @@
+{% schema %}
+{
+  "name": "Testimonios en Video",
+  "tag": "section",
+  "class": "video-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Lo que nuestros clientes dicen"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video_block",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "URL del video (.mp4)"
+        },
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Miniatura del video (.jpg o .png)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Cuadrícula de videos",
+      "category": "Media"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="video-section">
+  <div class="section-title">
+    <h2>{{ section.settings.heading }}</h2>
+  </div>
+  <div class="video-scroll">
+    <div class="video-row">
+      {% for block in section.blocks %}
+        {% if block.settings.video_url %}
+          <div class="video-card">
+            <div class="video-wrapper">
+              <video
+                class="custom-video"
+                src="{{ block.settings.video_url }}"
+                preload="metadata"
+                muted
+                playsinline
+              ></video>
+
+              {% if block.settings.thumbnail %}
+                <img src="{{ block.settings.thumbnail | image_url: width: 800 }}"
+                     class="video-thumbnail"
+                     onclick="playVideo(this)">
+              {% endif %}
+
+              <button class="custom-play-button" onclick="playVideo(this)">▶</button>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+.video-section {
+  padding: 20px 0;
+}
+
+.section-title h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.video-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.video-card {
+  width: 300px;
+  height: 548px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.video-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.custom-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  background-color: #000;
+  cursor: pointer;
+}
+
+.custom-video::-webkit-media-controls {
+  display: none !important;
+}
+
+.video-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.custom-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 48px;
+  width: 80px;
+  height: 80px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-play-button:hover {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+@media (max-width: 768px) {
+  .video-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .video-row {
+    flex-wrap: nowrap;
+    gap: 16px;
+    padding: 0 16px;
+    width: max-content;
+  }
+
+  .video-card {
+    flex: 0 0 auto;
+    width: 280px;
+    height: 460px;
+  }
+}
+</style>
+
+<script>
+function playVideo(trigger) {
+  const wrapper = trigger.closest('.video-wrapper');
+  const video = wrapper.querySelector('video');
+  const thumbnail = wrapper.querySelector('.video-thumbnail');
+  const button = wrapper.querySelector('.custom-play-button');
+
+  // Oculta thumbnail y botón
+  if (thumbnail) thumbnail.style.display = 'none';
+  if (button) button.style.display = 'none';
+
+  video.controls = false;
+  video.muted = false;
+  video.play();
+
+  // Añade evento de toque sobre el video para pausar/reanudar
+  video.onclick = () => {
+    if (video.paused) {
+      video.play();
+      if (button) button.style.display = 'none';
+      if (thumbnail) thumbnail.style.display = 'none';
+    } else {
+      video.pause();
+      if (button) button.style.display = 'block';
+    }
+  };
+
+  // Si termina, vuelve a mostrar botón y miniatura
+  video.addEventListener('ended', () => {
+    if (button) button.style.display = 'block';
+    if (thumbnail) thumbnail.style.display = 'block';
+  });
+}
+</script>

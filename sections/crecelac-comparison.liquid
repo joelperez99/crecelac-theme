@@ -1,0 +1,298 @@
+<div class="crecelac-compare" id="crecelac-compare-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.title != blank %}
+    <h2 class="crecelac-compare__title">{% render 'multilang' with section.settings.title %}</h2>
+    {% endif %}
+
+    <div class="crecelac-compare__grid">
+      <div class="crecelac-compare__tables">
+        <div class="crecelac-compare__col crecelac-compare__col--pro">
+          {% if section.settings.pro_title != blank %}
+          <h3><span class="crecelac-compare__check">{% render 'icon-crecelac', icon: 'check' %}</span>{% render 'multilang' with section.settings.pro_title %}</h3>
+          {% endif %}
+          <ul>
+            {% for block in section.blocks %}
+            {% if block.settings.pro_text != blank %}
+            <li {{ block.shopify_attributes }}>
+              <span class="crecelac-compare__icon crecelac-compare__icon--pro">{% render 'icon-crecelac', icon: 'check' %}</span>
+              {% render 'multilang' with block.settings.pro_text %}
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="crecelac-compare__vs">{{ section.settings.vs_text | default: 'VS' }}</div>
+
+        <div class="crecelac-compare__col crecelac-compare__col--con">
+          {% if section.settings.con_title != blank %}
+          <h3>{% render 'multilang' with section.settings.con_title %}</h3>
+          {% endif %}
+          <ul>
+            {% for block in section.blocks %}
+            {% if block.settings.con_text != blank %}
+            <li {{ block.shopify_attributes }}>
+              <span class="crecelac-compare__icon crecelac-compare__icon--con">{% render 'icon-crecelac', icon: 'cross' %}</span>
+              {% render 'multilang' with block.settings.con_text %}
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="crecelac-compare__media">
+        {% if section.settings.image != blank %}
+        {%- assign img_url = section.settings.image | img_url: '900x' -%}
+        <img data-src="{{ img_url }}" src="{{ img_url }}" alt="{{ section.settings.image.alt | escape }}" class="lazyautosizes lazyloaded" data-sizes="auto">
+        {% else %}
+        <div class="not_img">900 x 700px</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #crecelac-compare-{{ section.id }} {
+    padding: 56px 0;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: {{ section.settings.title_color }};
+    margin: 0 0 32px;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__grid {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__tables {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    overflow: hidden;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__col {
+    flex: 1;
+    padding: 28px 24px;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__col h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 18px;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__col--pro h3 {
+    color: {{ section.settings.accent_color }};
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__check {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    color: {{ section.settings.accent_color }};
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__col--con h3 {
+    color: {{ section.settings.title_color }};
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__col li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #4a4a4a;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: inline-flex;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__icon--pro {
+    color: {{ section.settings.accent_color }};
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__icon--con {
+    color: #c4c4c4;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__col--con {
+    border-left: 1px solid #ececec;
+    background: #fafafa;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__vs {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: {{ section.settings.title_color }};
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 -23px;
+    z-index: 1;
+    box-shadow: 0 0 0 6px #fff;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__media {
+    flex: 0 0 38%;
+  }
+
+  #crecelac-compare-{{ section.id }} .crecelac-compare__media img {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+  }
+
+  @media (max-width: 991px) {
+    #crecelac-compare-{{ section.id }} .crecelac-compare__grid {
+      flex-direction: column-reverse;
+    }
+
+    #crecelac-compare-{{ section.id }} .crecelac-compare__media {
+      flex: 1;
+      width: 100%;
+    }
+
+    #crecelac-compare-{{ section.id }} .crecelac-compare__tables {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    #crecelac-compare-{{ section.id }} .crecelac-compare__vs {
+      margin: -23px auto;
+    }
+
+    #crecelac-compare-{{ section.id }} .crecelac-compare__col--con {
+      border-left: none;
+      border-top: 1px solid #ececec;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Crecelac: Tabla comparativa",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo",
+      "default": "¿Por qué elegir Crecelac?"
+    },
+    {
+      "type": "text",
+      "id": "pro_title",
+      "label": "Titulo columna Crecelac",
+      "default": "Crecelac"
+    },
+    {
+      "type": "text",
+      "id": "con_title",
+      "label": "Titulo columna alternativa",
+      "default": "Desayunos tradicionales"
+    },
+    {
+      "type": "text",
+      "id": "vs_text",
+      "label": "Texto central",
+      "default": "VS"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen"
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fondo de seccion",
+      "default": "#faf3ef"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color del titulo",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Color de acento",
+      "default": "#c70000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Fila comparativa",
+      "settings": [
+        {
+          "type": "text",
+          "id": "pro_text",
+          "label": "Punto a favor de Crecelac",
+          "default": "Nutricion completa y balanceada"
+        },
+        {
+          "type": "text",
+          "id": "con_text",
+          "label": "Punto en contra de la alternativa",
+          "default": "Altos en azucar"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Crecelac: Tabla comparativa",
+      "category": "Crecelac",
+      "blocks": [
+        { "type": "row", "settings": { "pro_text": "Nutricion completa y balanceada", "con_text": "Altos en azucar" } },
+        { "type": "row", "settings": { "pro_text": "Ingredientes de alta calidad", "con_text": "Bajos en proteina" } },
+        { "type": "row", "settings": { "pro_text": "Listo para beber", "con_text": "Preparacion tardada" } },
+        { "type": "row", "settings": { "pro_text": "Sin azucares anadidas", "con_text": "Pocos nutrientes esenciales" } },
+        { "type": "row", "settings": { "pro_text": "Respaldo cientifico", "con_text": "Sin respaldo cientifico" } },
+        { "type": "row", "settings": { "pro_text": "Para toda la familia", "con_text": "No siempre son saludables" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

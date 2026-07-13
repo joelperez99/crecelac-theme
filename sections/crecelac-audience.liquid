@@ -1,0 +1,147 @@
+<div class="crecelac-audience" id="crecelac-audience-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.title != blank %}
+    <h2 class="crecelac-audience__title">{% render 'multilang' with section.settings.title %}</h2>
+    {% endif %}
+
+    <div class="crecelac-audience__grid">
+      {% for block in section.blocks %}
+      <a class="crecelac-audience__card" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+        {%- assign img_url = block.settings.image | img_url: '500x' -%}
+        <img data-src="{{ img_url }}" src="{{ img_url }}" alt="{{ block.settings.title | escape }}" class="lazyautosizes lazyloaded" data-sizes="auto">
+        {% else %}
+        <div class="not_img">500 x 600px</div>
+        {% endif %}
+        <div class="crecelac-audience__overlay">
+          {% if block.settings.title != blank %}
+          <strong>{% render 'multilang' with block.settings.title %}</strong>
+          {% endif %}
+          {% if block.settings.subtitle != blank %}
+          <span>{% render 'multilang' with block.settings.subtitle %}</span>
+          {% endif %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  #crecelac-audience-{{ section.id }} {
+    padding: 56px 0;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  #crecelac-audience-{{ section.id }} .crecelac-audience__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: {{ section.settings.title_color }};
+    margin: 0 0 24px;
+  }
+
+  #crecelac-audience-{{ section.id }} .crecelac-audience__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  #crecelac-audience-{{ section.id }} .crecelac-audience__card {
+    position: relative;
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 5/6;
+    text-decoration: none;
+  }
+
+  #crecelac-audience-{{ section.id }} .crecelac-audience__card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .4s ease;
+  }
+
+  #crecelac-audience-{{ section.id }} .crecelac-audience__card:hover img {
+    transform: scale(1.06);
+  }
+
+  #crecelac-audience-{{ section.id }} .crecelac-audience__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 18px 16px;
+    background: linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,0));
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+  }
+
+  #crecelac-audience-{{ section.id }} .crecelac-audience__overlay strong {
+    font-size: 16px;
+  }
+
+  #crecelac-audience-{{ section.id }} .crecelac-audience__overlay span {
+    font-size: 12px;
+    opacity: .9;
+  }
+
+  @media (max-width: 767px) {
+    #crecelac-audience-{{ section.id }} .crecelac-audience__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Crecelac: Nutricion para la familia",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo",
+      "default": "Nutricion para toda la familia"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fondo de seccion",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color del titulo",
+      "default": "#232323"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "audience",
+      "name": "Publico",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagen" },
+        { "type": "url", "id": "link", "label": "Enlace" },
+        { "type": "text", "id": "title", "label": "Titulo", "default": "Ninos" },
+        { "type": "text", "id": "subtitle", "label": "Subtitulo", "default": "Crecimiento y desarrollo saludable" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Crecelac: Nutricion para la familia",
+      "category": "Crecelac",
+      "blocks": [
+        { "type": "audience", "settings": { "title": "Ninos", "subtitle": "Crecimiento y desarrollo saludable" } },
+        { "type": "audience", "settings": { "title": "Adultos", "subtitle": "Energia y bienestar diario" } },
+        { "type": "audience", "settings": { "title": "Adultos mayores", "subtitle": "Fortalece huesos y musculos" } },
+        { "type": "audience", "settings": { "title": "Deportistas", "subtitle": "Recuperacion y rendimiento optimo" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

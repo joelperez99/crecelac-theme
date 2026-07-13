@@ -1,0 +1,60 @@
+<div class="container {{ section.id }} contenedorBotones">
+   <div class="row">
+      {% for link in linklists[section.settings.menu].links %}
+      <div class="col d-flex justify-content-center align-items-center">
+         <a href="{{ link.url }}">{{ link.title }}</a>
+      </div>
+      {% endfor %}
+   </div>
+</div>  
+
+<style>
+   .contenedorBotones a {
+      background: #00953B!important;
+      color: #fff!important;
+      border-color: #00953B!important;
+      border-radius: 60px;
+      padding: 15px 100px;
+     font-size:1.5em;
+   }
+
+   .contenedorBotones .col {
+      margin-bottom: 50px; /* Espacio vertical entre botones */
+   }
+  @media only screen and (max-width:768px){
+     .contenedorBotones a {
+    padding: 6px;
+    font-size: 1em;
+    text-align: center;
+    line-height: 1em;
+     }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Botones crecelac",
+  "settings": [
+    {
+            "type": "link_list",
+            "id": "menu",
+            "label": "t:sections.header.settings.menu.label__1",
+            "default": "main-menu"
+        }
+    
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Botones crecelac",
+      "category": "Custom crecelac"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
