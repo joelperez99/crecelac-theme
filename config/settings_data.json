@@ -4412,73 +4412,6 @@
       },
       "crecelac-feature-icons": {
         "type": "crecelac-feature-icons",
-        "blocks": {
-          "feature_9FRzGU": {
-            "type": "feature",
-            "settings": {
-              "icon": "protein",
-              "title": "Libre de gluten",
-              "subtitle": "Apto para celíacos"
-            }
-          },
-          "feature_qJGfPV": {
-            "type": "feature",
-            "settings": {
-              "icon": "protein",
-              "title": "Alto en proteína",
-              "subtitle": "24g por porción"
-            }
-          },
-          "feature_e9VePP": {
-            "type": "feature",
-            "settings": {
-              "icon": "vitamins",
-              "title": "Vitaminas y minerales",
-              "subtitle": "Nutrición completa diaria"
-            }
-          },
-          "feature_a9dGcr": {
-            "type": "feature",
-            "settings": {
-              "icon": "prebiotics",
-              "title": "Prebióticos",
-              "subtitle": "Equilibrio y bienestar intestinal"
-            }
-          },
-          "feature_r6HNNr": {
-            "type": "feature",
-            "settings": {
-              "icon": "lactose-free",
-              "title": "Sin lactosa",
-              "subtitle": "De fácil digestión"
-            }
-          },
-          "feature_qxzTxk": {
-            "type": "feature",
-            "settings": {
-              "icon": "ready-to-drink",
-              "title": "Listo para beber",
-              "subtitle": "Práctico y llevar contigo"
-            }
-          },
-          "feature_Utqx4Q": {
-            "type": "feature",
-            "settings": {
-              "icon": "clock",
-              "title": "Ideal para cualquier momento",
-              "subtitle": "Tu dosis de energía diaria"
-            }
-          }
-        },
-        "block_order": [
-          "feature_9FRzGU",
-          "feature_qJGfPV",
-          "feature_e9VePP",
-          "feature_a9dGcr",
-          "feature_r6HNNr",
-          "feature_qxzTxk",
-          "feature_Utqx4Q"
-        ],
         "settings": {
           "bg_color": "#ffffff",
           "border_color": "#ececec",
@@ -4493,7 +4426,7 @@
           "title": "Productos destacados",
           "link_text": "Ver todos",
           "link": "",
-          "collection": "",
+          "collection": "para-comenzar-el-dia",
           "products_limit": 4,
           "products_per_row": "4",
           "bg_color": "#ffffff",
