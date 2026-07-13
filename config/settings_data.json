@@ -4362,6 +4362,34 @@
       },
       "crecelac-hero": {
         "type": "crecelac-hero",
+        "blocks": {
+          "trust_badge_Tc3Q4b": {
+            "type": "trust_badge",
+            "settings": {
+              "icon": "points",
+              "text": "Delicioso sabor"
+            }
+          },
+          "trust_badge_3Br84L": {
+            "type": "trust_badge",
+            "settings": {
+              "icon": "prebiotics",
+              "text": "Ingredientes de alta calidad"
+            }
+          },
+          "trust_badge_9zUPHq": {
+            "type": "trust_badge",
+            "settings": {
+              "icon": "ready-to-drink",
+              "text": "¡Hecho en México!"
+            }
+          }
+        },
+        "block_order": [
+          "trust_badge_Tc3Q4b",
+          "trust_badge_3Br84L",
+          "trust_badge_9zUPHq"
+        ],
         "settings": {
           "heading": "Nutrición completa en cada sorbo.",
           "subheading": "<p><br/>Una bebida lista para consumir con <strong>proteína</strong>, <strong>vitaminas y minerales</strong> esenciales para toda la familia.<br/><br/></p>",
