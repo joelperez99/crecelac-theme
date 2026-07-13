@@ -4364,7 +4364,7 @@
         "type": "crecelac-hero",
         "settings": {
           "heading": "Nutrición completa en cada sorbo.",
-          "subheading": "<p>Una bebida lista para consumir con proteina, vitaminas, minerales y otros nutrientes esenciales para toda la familia.</p>",
+          "subheading": "<p><br/>Una bebida lista para consumir con <strong>proteína</strong>, <strong>vitaminas y minerales</strong> esenciales para toda la familia.<br/><br/></p>",
           "button_1_text": "Comprar ahora",
           "button_1_link": "",
           "button_2_text": "Conoce mas",
