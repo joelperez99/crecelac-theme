@@ -1,6 +1,7 @@
 <div class="crecelac-features" id="crecelac-features-{{ section.id }}">
   <div class="container">
     <div class="crecelac-features__grid">
+      {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
       <div class="crecelac-features__item" {{ block.shopify_attributes }}>
         <span class="crecelac-features__icon">{% render 'icon-crecelac', icon: block.settings.icon %}</span>
@@ -12,6 +13,19 @@
         {% endif %}
       </div>
       {% endfor %}
+      {% else %}
+      {% assign default_features = 'protein|Alto en proteina|24g por porcion,vitamins|Vitaminas y minerales|28 esenciales,prebiotics|Prebioticos|Salud digestiva,gluten-free|Libre de gluten|,lactose-free|Sin lactosa|,ready-to-drink|Listo para beber|,clock|Ideal para cualquier momento|del dia' | split: ',' %}
+      {% for feature in default_features %}
+      {% assign parts = feature | split: '|' %}
+      <div class="crecelac-features__item">
+        <span class="crecelac-features__icon">{% render 'icon-crecelac', icon: parts[0] %}</span>
+        <strong>{{ parts[1] }}</strong>
+        {% if parts[2] != blank %}
+        <span class="crecelac-features__subtitle">{{ parts[2] }}</span>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
     </div>
   </div>
 </div>

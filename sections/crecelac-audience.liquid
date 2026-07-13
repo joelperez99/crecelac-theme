@@ -5,6 +5,7 @@
     {% endif %}
 
     <div class="crecelac-audience__grid">
+      {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
       <a class="crecelac-audience__card" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
         {% if block.settings.image != blank %}
@@ -23,6 +24,19 @@
         </div>
       </a>
       {% endfor %}
+      {% else %}
+      {% assign default_audiences = 'Ninos|Crecimiento y desarrollo saludable,Adultos|Energia y bienestar diario,Adultos mayores|Fortalece huesos y musculos,Deportistas|Recuperacion y rendimiento optimo' | split: ',' %}
+      {% for item in default_audiences %}
+      {% assign parts = item | split: '|' %}
+      <a class="crecelac-audience__card" href="#">
+        <div class="not_img">500 x 600px</div>
+        <div class="crecelac-audience__overlay">
+          <strong>{{ parts[0] }}</strong>
+          <span>{{ parts[1] }}</span>
+        </div>
+      </a>
+      {% endfor %}
+      {% endif %}
     </div>
   </div>
 </div>

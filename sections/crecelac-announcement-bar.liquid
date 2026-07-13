@@ -1,6 +1,7 @@
 <div class="crecelac-announcement" id="crecelac-announcement-{{ section.id }}">
   <div class="container">
     <ul class="crecelac-announcement__list">
+      {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
       <li class="crecelac-announcement__item" {{ block.shopify_attributes }}>
         {% if block.settings.icon != 'none' %}
@@ -9,6 +10,16 @@
         <span class="crecelac-announcement__text">{% render 'multilang' with block.settings.text %}</span>
       </li>
       {% endfor %}
+      {% else %}
+      {% assign default_items = 'truck|Envio gratis en pedidos +$999 MXN,clock|15% de descuento en tu primera suscripcion,shield|Garantia de satisfaccion 100%' | split: ',' %}
+      {% for item in default_items %}
+      {% assign parts = item | split: '|' %}
+      <li class="crecelac-announcement__item">
+        <span class="crecelac-announcement__icon">{% render 'icon-crecelac', icon: parts[0] %}</span>
+        <span class="crecelac-announcement__text">{{ parts[1] }}</span>
+      </li>
+      {% endfor %}
+      {% endif %}
     </ul>
   </div>
 </div>

@@ -5,6 +5,7 @@
     {% endif %}
 
     <div class="crecelac-testimonials__grid">
+      {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
       <div class="crecelac-testimonials__card" {{ block.shopify_attributes }}>
         <div class="crecelac-testimonials__head">
@@ -33,6 +34,27 @@
         {% endif %}
       </div>
       {% endfor %}
+      {% else %}
+      {% assign default_testimonials = 'Maria G.|Mama de 2 ninos|A mis hijos les encanta y me quedo tranquila sabiendo que estan tomando algo nutritivo.,Carlos R.|Atleta|Perfecto despues de entrenamientos. Sabor increible y me recupero rapido.,Ana L.|Estilo de vida saludable|Me ayuda a mantenerme con energia durante el dia. Super practico y delicioso.' | split: ',' %}
+      {% for item in default_testimonials %}
+      {% assign parts = item | split: '|' %}
+      <div class="crecelac-testimonials__card">
+        <div class="crecelac-testimonials__head">
+          <div class="crecelac-testimonials__avatar">
+            <span>{{ parts[0] | slice: 0 }}</span>
+          </div>
+          <div>
+            <strong>{{ parts[0] }}</strong>
+            <span class="crecelac-testimonials__role">{{ parts[1] }}</span>
+          </div>
+        </div>
+        <div class="crecelac-testimonials__stars">
+          {% for i in (1..5) %}{% render 'icon-star' %}{% endfor %}
+        </div>
+        <p class="crecelac-testimonials__quote">"{{ parts[2] }}"</p>
+      </div>
+      {% endfor %}
+      {% endif %}
     </div>
   </div>
 </div>

@@ -11,6 +11,7 @@
         {% endif %}
 
         <div class="crecelac-nutrition__ingredients-grid">
+          {% if ingredient_blocks.size > 0 %}
           {% for block in ingredient_blocks %}
           <div class="crecelac-nutrition__ingredient" {{ block.shopify_attributes }}>
             <div class="crecelac-nutrition__ingredient-media">
@@ -29,6 +30,19 @@
             {% endif %}
           </div>
           {% endfor %}
+          {% else %}
+          {% assign default_ingredients = 'Proteina de alta calidad|Desarrollo y mantenimiento muscular,Vitaminas|Fortalecen el sistema inmunologico,Minerales|Salud osea y funcion corporal,Prebioticos|Salud digestiva y bienestar intestinal,Ingredientes naturales|Sin colorantes ni saborizantes artificiales' | split: ',' %}
+          {% for item in default_ingredients %}
+          {% assign parts = item | split: '|' %}
+          <div class="crecelac-nutrition__ingredient">
+            <div class="crecelac-nutrition__ingredient-media">
+              <div class="not_img">200 x 200px</div>
+            </div>
+            <strong>{{ parts[0] }}</strong>
+            <span>{{ parts[1] }}</span>
+          </div>
+          {% endfor %}
+          {% endif %}
         </div>
       </div>
 
@@ -41,24 +55,44 @@
         {% endif %}
 
         <table class="crecelac-nutrition__table">
+          {% if nutrient_blocks.size > 0 %}
           {% for block in nutrient_blocks %}
           <tr {{ block.shopify_attributes }}>
             <td>{% render 'multilang' with block.settings.label %}</td>
             <td>{% render 'multilang' with block.settings.value %}</td>
           </tr>
           {% endfor %}
+          {% else %}
+          {% assign default_nutrients = 'Calorias|220 kcal,Proteina|24 g,Grasas totales|6 g,Carbohidratos|18 g,Azucares|6 g,Fibra dietetica|4 g,Sodio|150 mg' | split: ',' %}
+          {% for item in default_nutrients %}
+          {% assign parts = item | split: '|' %}
+          <tr>
+            <td>{{ parts[0] }}</td>
+            <td>{{ parts[1] }}</td>
+          </tr>
+          {% endfor %}
+          {% endif %}
         </table>
 
-        {% if vitamin_blocks.size > 0 %}
         <div class="crecelac-nutrition__vitamins">
+          {% if vitamin_blocks.size > 0 %}
           {% for block in vitamin_blocks %}
           <div {{ block.shopify_attributes }}>
             <strong>{% render 'multilang' with block.settings.label %}</strong>
             <span>{% render 'multilang' with block.settings.value %}</span>
           </div>
           {% endfor %}
+          {% else %}
+          {% assign default_vitamins = 'Vitamina A|25%,Vitamina C|30%,Calcio|25%,Hierro|20%' | split: ',' %}
+          {% for item in default_vitamins %}
+          {% assign parts = item | split: '|' %}
+          <div>
+            <strong>{{ parts[0] }}</strong>
+            <span>{{ parts[1] }}</span>
+          </div>
+          {% endfor %}
+          {% endif %}
         </div>
-        {% endif %}
 
         {% if section.settings.disclaimer != blank %}
         <p class="crecelac-nutrition__disclaimer">{% render 'multilang' with section.settings.disclaimer %}</p>

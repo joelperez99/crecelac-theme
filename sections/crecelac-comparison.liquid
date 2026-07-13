@@ -4,6 +4,8 @@
     <h2 class="crecelac-compare__title">{% render 'multilang' with section.settings.title %}</h2>
     {% endif %}
 
+    {% assign default_rows = 'Nutricion completa y balanceada|Altos en azucar,Ingredientes de alta calidad|Bajos en proteina,Listo para beber|Preparacion tardada,Sin azucares anadidas|Pocos nutrientes esenciales,Respaldo cientifico|Sin respaldo cientifico,Para toda la familia|No siempre son saludables' | split: ',' %}
+
     <div class="crecelac-compare__grid">
       <div class="crecelac-compare__tables">
         <div class="crecelac-compare__col crecelac-compare__col--pro">
@@ -11,6 +13,7 @@
           <h3><span class="crecelac-compare__check">{% render 'icon-crecelac', icon: 'check' %}</span>{% render 'multilang' with section.settings.pro_title %}</h3>
           {% endif %}
           <ul>
+            {% if section.blocks.size > 0 %}
             {% for block in section.blocks %}
             {% if block.settings.pro_text != blank %}
             <li {{ block.shopify_attributes }}>
@@ -19,6 +22,15 @@
             </li>
             {% endif %}
             {% endfor %}
+            {% else %}
+            {% for row in default_rows %}
+            {% assign parts = row | split: '|' %}
+            <li>
+              <span class="crecelac-compare__icon crecelac-compare__icon--pro">{% render 'icon-crecelac', icon: 'check' %}</span>
+              {{ parts[0] }}
+            </li>
+            {% endfor %}
+            {% endif %}
           </ul>
         </div>
 
@@ -29,6 +41,7 @@
           <h3>{% render 'multilang' with section.settings.con_title %}</h3>
           {% endif %}
           <ul>
+            {% if section.blocks.size > 0 %}
             {% for block in section.blocks %}
             {% if block.settings.con_text != blank %}
             <li {{ block.shopify_attributes }}>
@@ -37,6 +50,15 @@
             </li>
             {% endif %}
             {% endfor %}
+            {% else %}
+            {% for row in default_rows %}
+            {% assign parts = row | split: '|' %}
+            <li>
+              <span class="crecelac-compare__icon crecelac-compare__icon--con">{% render 'icon-crecelac', icon: 'cross' %}</span>
+              {{ parts[1] }}
+            </li>
+            {% endfor %}
+            {% endif %}
           </ul>
         </div>
       </div>

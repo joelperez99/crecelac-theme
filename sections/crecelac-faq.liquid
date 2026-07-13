@@ -5,6 +5,7 @@
     {% endif %}
 
     <div class="panel-group crecelac-faq__list">
+      {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}
       <div class="panel panel-default" {{ block.shopify_attributes }}>
         <div class="panel-heading">
@@ -22,6 +23,27 @@
         </div>
       </div>
       {% endfor %}
+      {% else %}
+      {% assign default_faqs = '¿Es apto para ninos?@@@Si, Crecelac esta formulado para toda la familia a partir de los 3 anos.###¿Contiene lactosa o gluten?@@@Nuestra formula esta libre de gluten y lactosa.###¿Como se debe conservar?@@@Conservalo en refrigeracion y consumelo dentro de las 48 horas posteriores a abrirlo.###¿Puedo tomarlo si soy diabetico?@@@Te recomendamos consultarlo con tu medico antes de consumirlo si tienes alguna condicion medica.###¿Cuantas porciones contiene?@@@Cada botella contiene una porcion individual de 330 ml lista para consumir.' | split: '###' %}
+      {% for item in default_faqs %}
+      {% assign parts = item | split: '@@@' %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a class="{% unless forloop.first %}collapsed{% endunless %}" data-toggle="collapse" href="#crecelac-faq-default-{{ forloop.index }}">
+              {{ parts[0] }}
+              <span class="crecelac-faq__caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+            </a>
+          </h4>
+        </div>
+        <div id="crecelac-faq-default-{{ forloop.index }}" class="panel-collapse collapse{% if forloop.first %} show{% endif %}">
+          <div class="panel-body">
+            <p>{{ parts[1] }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
     </div>
   </div>
 </div>

@@ -35,9 +35,9 @@
         </div>
       </div>
 
-      {% if section.blocks.size > 0 %}
       <aside class="crecelac-featured__sidebar" style="background-color: {{ section.settings.sidebar_bg }};">
         <ul>
+          {% if section.blocks.size > 0 %}
           {% for block in section.blocks %}
           <li {{ block.shopify_attributes }}>
             <span class="crecelac-featured__sidebar-icon">{% render 'icon-crecelac', icon: block.settings.icon %}</span>
@@ -49,9 +49,21 @@
             </div>
           </li>
           {% endfor %}
+          {% else %}
+          {% assign default_benefits = 'clock|Suscribete y ahorra 15%|Envio automatico a tu puerta,pause|Pausa o cancela cuando quieras|Sin compromisos,points|Acumula puntos|Y obten descuentos,truck|Envios rapidos y seguros|A todo Mexico' | split: ',' %}
+          {% for benefit in default_benefits %}
+          {% assign parts = benefit | split: '|' %}
+          <li>
+            <span class="crecelac-featured__sidebar-icon">{% render 'icon-crecelac', icon: parts[0] %}</span>
+            <div>
+              <strong>{{ parts[1] }}</strong>
+              <span>{{ parts[2] }}</span>
+            </div>
+          </li>
+          {% endfor %}
+          {% endif %}
         </ul>
       </aside>
-      {% endif %}
     </div>
   </div>
 </div>
