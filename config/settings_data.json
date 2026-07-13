@@ -4370,7 +4370,7 @@
           "button_2_text": "Conoce mas",
           "button_2_link": "",
           "image": "shopify://shop_images/Gemini_Generated_Image_ax5lvjax5lvjax5l.png",
-          "show_badge": true,
+          "show_badge": false,
           "badge_title": "+25,000 familias",
           "badge_subtitle": "confían en Para comenzar",
           "bg_color": "#ffffff",
