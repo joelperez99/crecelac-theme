@@ -4397,7 +4397,9 @@
           "button_1_link": "",
           "button_2_text": "Conoce mas",
           "button_2_link": "",
+          "media_type": "video",
           "image": "shopify://shop_images/Gemini_Generated_Image_ax5lvjax5lvjax5l.png",
+          "video": "shopify://files/videos/8160024-uhd_3840_2160_25fps.mp4",
           "show_badge": false,
           "badge_title": "+25,000 familias",
           "badge_subtitle": "confían en Para comenzar",
@@ -4521,7 +4523,8 @@
       "crecelac-header": {
         "type": "crecelac-header",
         "settings": {
-          "logo_width": 140,
+          "logo": "shopify://shop_images/upscalemedia-transformed_4_ce118927-e2ff-4e17-bde3-8fb3921b73a5.png",
+          "logo_width": 90,
           "logo_text": "Crecelac",
           "tagline": "Nutricion completa",
           "menu": "main-menu",
