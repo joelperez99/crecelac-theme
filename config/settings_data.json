@@ -4412,6 +4412,73 @@
       },
       "crecelac-feature-icons": {
         "type": "crecelac-feature-icons",
+        "blocks": {
+          "feature_qJGfPV": {
+            "type": "feature",
+            "settings": {
+              "icon": "protein",
+              "title": "Alto en proteína",
+              "subtitle": "24g por porción"
+            }
+          },
+          "feature_e9VePP": {
+            "type": "feature",
+            "settings": {
+              "icon": "protein",
+              "title": "Alto en proteina",
+              "subtitle": "24g por porcion"
+            }
+          },
+          "feature_a9dGcr": {
+            "type": "feature",
+            "settings": {
+              "icon": "protein",
+              "title": "Alto en proteina",
+              "subtitle": "24g por porcion"
+            }
+          },
+          "feature_r6HNNr": {
+            "type": "feature",
+            "settings": {
+              "icon": "protein",
+              "title": "Alto en proteina",
+              "subtitle": "24g por porcion"
+            }
+          },
+          "feature_qxzTxk": {
+            "type": "feature",
+            "settings": {
+              "icon": "protein",
+              "title": "Alto en proteina",
+              "subtitle": "24g por porcion"
+            }
+          },
+          "feature_Utqx4Q": {
+            "type": "feature",
+            "settings": {
+              "icon": "protein",
+              "title": "Alto en proteina",
+              "subtitle": "24g por porcion"
+            }
+          },
+          "feature_JJb4b9": {
+            "type": "feature",
+            "settings": {
+              "icon": "protein",
+              "title": "Alto en proteina",
+              "subtitle": "24g por porcion"
+            }
+          }
+        },
+        "block_order": [
+          "feature_qJGfPV",
+          "feature_e9VePP",
+          "feature_a9dGcr",
+          "feature_r6HNNr",
+          "feature_qxzTxk",
+          "feature_Utqx4Q",
+          "feature_JJb4b9"
+        ],
         "settings": {
           "bg_color": "#ffffff",
           "border_color": "#ececec",
