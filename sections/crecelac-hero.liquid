@@ -50,7 +50,9 @@
       </div>
 
       <div class="crecelac-hero__media">
-        {% if section.settings.image != blank %}
+        {% if section.settings.media_type == 'video' and section.settings.video != null %}
+        {{ section.settings.video | video_tag: image_size: '1100x', autoplay: true, loop: true, muted: true, controls: false, class: 'crecelac-hero__video' }}
+        {% elsif section.settings.image != blank %}
         {%- assign img_url = section.settings.image | img_url: '1200x' -%}
         <img data-src="{{ img_url }}" src="{{ img_url }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}" class="lazyautosizes lazyloaded" data-sizes="auto">
         {% else %}
@@ -179,7 +181,8 @@
     flex: 1;
   }
 
-  #crecelac-hero-{{ section.id }} .crecelac-hero__media img {
+  #crecelac-hero-{{ section.id }} .crecelac-hero__media img,
+  #crecelac-hero-{{ section.id }} .crecelac-hero__media video {
     width: 100%;
     border-radius: 12px;
     display: block;
@@ -285,9 +288,24 @@
       "label": "Enlace boton secundario"
     },
     {
+      "type": "select",
+      "id": "media_type",
+      "label": "Tipo de medio",
+      "options": [
+        { "value": "image", "label": "Imagen" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "image"
+    },
+    {
       "type": "image_picker",
       "id": "image",
       "label": "Imagen"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
     },
     {
       "type": "header",
