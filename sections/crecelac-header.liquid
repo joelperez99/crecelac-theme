@@ -1,0 +1,367 @@
+<header class="crecelac-header" id="crecelac-header-{{ section.id }}">
+  <div class="container">
+    <div class="crecelac-header__row">
+      <a href="{{ routes.root_url }}" class="crecelac-header__logo">
+        {% if section.settings.logo != blank %}
+        {%- assign logo_width = section.settings.logo_width | default: 140 -%}
+        {%- assign logo_url = section.settings.logo | img_url: logo_width %}
+        <img src="{{ logo_url }}" alt="{{ shop.name }}" width="{{ logo_width }}">
+        {% else %}
+        <span class="crecelac-header__logo-text">{{ section.settings.logo_text | default: shop.name }}</span>
+        {% if section.settings.tagline != blank %}
+        <span class="crecelac-header__tagline">{% render 'multilang' with section.settings.tagline %}</span>
+        {% endif %}
+        {% endif %}
+      </a>
+
+      <button type="button" class="crecelac-header__burger" data-crecelac-menu-toggle aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="crecelac-header__nav" data-crecelac-nav>
+        <ul>
+          {% for link in linklists[section.settings.menu].links %}
+          <li class="{% if link.links.size > 0 %}crecelac-header__has-dropdown{% endif %}">
+            <a href="{{ link.url }}">
+              {{ link.title }}
+              {% if link.links.size > 0 %}<i class="fa fa-angle-down" aria-hidden="true"></i>{% endif %}
+            </a>
+            {% if link.links.size > 0 %}
+            <ul class="crecelac-header__dropdown">
+              {% for child_link in link.links %}
+              <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      <div class="crecelac-header__icons">
+        <button type="button" class="crecelac-header__icon" data-crecelac-search-toggle aria-label="{{ 'general.search.title' | t }}">
+          {% render 'icon-search' %}
+        </button>
+
+        <a href="{{ customer ? routes.account_url : routes.account_login_url }}" class="crecelac-header__icon" aria-label="{{ 'customer.account.title' | t }}">
+          {% render 'icon-user' %}
+        </a>
+
+        <a href="{{ routes.cart_url }}" class="crecelac-header__icon crecelac-header__cart" aria-label="{{ 'cart.general.title' | t }}">
+          {% render 'icon-cart' %}
+          {% if cart.item_count > 0 %}
+          <span class="crecelac-header__cart-count">{{ cart.item_count }}</span>
+          {% endif %}
+        </a>
+      </div>
+    </div>
+
+    <div class="crecelac-header__search" data-crecelac-search>
+      <form action="{{ routes.search_url }}" method="get" role="search">
+        <input type="hidden" name="type" value="product">
+        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off">
+        <button type="submit">{% render 'icon-search' %}</button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<style>
+  #crecelac-header-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    border-bottom: 1px solid {{ section.settings.border_color }};
+    position: relative;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__row {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 16px 0;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__logo {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    margin-right: auto;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__logo img {
+    display: block;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: {{ section.settings.accent_color }};
+    line-height: 1.1;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__tagline {
+    font-size: 11px;
+    color: {{ section.settings.text_color }};
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__burger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__burger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: {{ section.settings.text_color }};
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__nav > ul {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__nav a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__nav > ul > li > a:hover {
+    color: {{ section.settings.accent_color }};
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__nav a i {
+    font-size: 10px;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__has-dropdown {
+    position: relative;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid {{ section.settings.border_color }};
+    border-radius: 6px;
+    box-shadow: 0 12px 24px rgba(0,0,0,.08);
+    margin: 8px 0 0;
+    padding: 8px 0;
+    list-style: none;
+    min-width: 200px;
+    display: none;
+    z-index: 20;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__has-dropdown:hover .crecelac-header__dropdown,
+  #crecelac-header-{{ section.id }} .crecelac-header__has-dropdown.is-open .crecelac-header__dropdown {
+    display: block;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__dropdown li a {
+    padding: 8px 18px;
+    font-size: 13px;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__dropdown li a:hover {
+    background: #faf3ef;
+    color: {{ section.settings.accent_color }};
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__icons {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__icon {
+    position: relative;
+    display: inline-flex;
+    width: 20px;
+    height: 20px;
+    color: {{ section.settings.text_color }};
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__cart-count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: {{ section.settings.accent_color }};
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__search {
+    display: none;
+    padding-bottom: 16px;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__search.is-open {
+    display: block;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__search form {
+    display: flex;
+    border: 1px solid {{ section.settings.border_color }};
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__search input {
+    flex: 1;
+    border: none;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__search button {
+    width: 40px;
+    border: none;
+    background: {{ section.settings.accent_color }};
+    color: #fff;
+    cursor: pointer;
+  }
+
+  #crecelac-header-{{ section.id }} .crecelac-header__search button svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  @media (max-width: 991px) {
+    #crecelac-header-{{ section.id }} .crecelac-header__burger {
+      display: flex;
+    }
+
+    #crecelac-header-{{ section.id }} .crecelac-header__nav {
+      display: none;
+      width: 100%;
+      order: 4;
+    }
+
+    #crecelac-header-{{ section.id }} .crecelac-header__nav.is-open {
+      display: block;
+    }
+
+    #crecelac-header-{{ section.id }} .crecelac-header__row {
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    #crecelac-header-{{ section.id }} .crecelac-header__nav > ul {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    #crecelac-header-{{ section.id }} .crecelac-header__nav > ul > li {
+      width: 100%;
+      border-top: 1px solid {{ section.settings.border_color }};
+    }
+
+    #crecelac-header-{{ section.id }} .crecelac-header__nav > ul > li > a {
+      padding: 12px 0;
+    }
+
+    #crecelac-header-{{ section.id }} .crecelac-header__dropdown {
+      position: static;
+      box-shadow: none;
+      border: none;
+      display: none;
+      padding-left: 12px;
+    }
+
+    #crecelac-header-{{ section.id }} .crecelac-header__has-dropdown.is-open .crecelac-header__dropdown {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.getElementById('crecelac-header-{{ section.id }}');
+    if (!root) return;
+
+    var menuToggle = root.querySelector('[data-crecelac-menu-toggle]');
+    var nav = root.querySelector('[data-crecelac-nav]');
+    var searchToggle = root.querySelector('[data-crecelac-search-toggle]');
+    var search = root.querySelector('[data-crecelac-search]');
+
+    if (menuToggle && nav) {
+      menuToggle.addEventListener('click', function () {
+        nav.classList.toggle('is-open');
+      });
+    }
+
+    if (searchToggle && search) {
+      searchToggle.addEventListener('click', function () {
+        search.classList.toggle('is-open');
+        var input = search.querySelector('input[type="search"]');
+        if (search.classList.contains('is-open') && input) input.focus();
+      });
+    }
+
+    var dropdownParents = root.querySelectorAll('.crecelac-header__has-dropdown');
+    dropdownParents.forEach(function (parent) {
+      var link = parent.querySelector('a');
+      link.addEventListener('click', function (e) {
+        if (window.innerWidth <= 991) {
+          e.preventDefault();
+          parent.classList.toggle('is-open');
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Crecelac: Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "range", "id": "logo_width", "label": "Ancho del logo (px)", "min": 60, "max": 260, "step": 10, "default": 140 },
+    { "type": "text", "id": "logo_text", "label": "Texto (si no hay logo)", "default": "Crecelac" },
+    { "type": "text", "id": "tagline", "label": "Slogan bajo el logo", "default": "Nutricion completa" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "header", "content": "Colores" },
+    { "type": "color", "id": "bg_color", "label": "Fondo", "default": "#ffffff" },
+    { "type": "color", "id": "border_color", "label": "Borde", "default": "#ececec" },
+    { "type": "color", "id": "text_color", "label": "Texto", "default": "#232323" },
+    { "type": "color", "id": "accent_color", "label": "Acento", "default": "#c70000" }
+  ],
+  "presets": [
+    { "name": "Crecelac: Header", "category": "Crecelac" }
+  ]
+}
+{% endschema %}
