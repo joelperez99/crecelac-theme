@@ -24,16 +24,29 @@
           {% endif %}
         </div>
 
-        {% if section.blocks.size > 0 %}
         <ul class="crecelac-hero__trust">
+          {% if section.blocks.size > 0 %}
           {% for block in section.blocks %}
           <li {{ block.shopify_attributes }}>
             <span class="crecelac-hero__trust-icon">{% render 'icon-crecelac', icon: block.settings.icon %}</span>
             <span>{% render 'multilang' with block.settings.text %}</span>
           </li>
           {% endfor %}
+          {% else %}
+          <li>
+            <span class="crecelac-hero__trust-icon">{% render 'icon-crecelac', icon: 'check' %}</span>
+            <span>Ingredientes de alta calidad</span>
+          </li>
+          <li>
+            <span class="crecelac-hero__trust-icon">{% render 'icon-crecelac', icon: 'shield' %}</span>
+            <span>Respaldo cientifico</span>
+          </li>
+          <li>
+            <span class="crecelac-hero__trust-icon">{% render 'icon-crecelac', icon: 'family' %}</span>
+            <span>Hecho en Mexico con amor</span>
+          </li>
+          {% endif %}
         </ul>
-        {% endif %}
       </div>
 
       <div class="crecelac-hero__media">
